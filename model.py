@@ -35,6 +35,7 @@ def basic_info(categories=["tempo","duration","key","time_signature","song_hottt
 
 def freq_plot(category="year",saved_csv=None):
     """ Plots frequency of category"""
+    categories = category
     if saved_csv: 
         df = pd.read_csv(saved_csv)
         df = df[categories]
@@ -93,9 +94,9 @@ def world_plot(lat="artist_latitude",lon="artist_longitude",saved_csv=None):
             resolution="c")
     m.drawcoastlines()
     m.drawcountries(linewidth=1)
-    m.fillcontinents(color='coral', alpha=0.6,lake_color='aqua')
-    m.drawmapboundary(fill_color='aqua')
-    m.drawstates()
+    #m.fillcontinents(color='coral')
+    m.drawmapboundary(fill_color='aqua', alpha=0.5)
+    #m.drawstates()
     #m.bluemarble()
     # Plot artists
     for artist_lat,artist_lon in lat_lon:
@@ -123,9 +124,10 @@ def stacked_barplot(full="duration",head_end="end_of_fade_in",tail_start="start_
     None, saves figure in working directory
 
     """
+    categories = [full,head_end,tail_start]
     if saved_csv: 
         df = pd.read_csv(saved_csv)
-        df = df["categories"]
+        df = df[categories]
     else:
         df = get_song_data([full,head_end,tail_start],write=True, write_path="./temp/song_data4.csv")
     start_time =time.time()
@@ -248,7 +250,7 @@ def error_bar(categories=["segments_loudness_max","segments_confidence"],data_i=
         df = pd.read_csv(saved_csv)
         df = df[categories]
     else: 
-        df = get_song_data(categories,write=False,end_i=data_i[1], write_path="./temp/song_data6.csv")
+        df = get_song_data(categories,write=True,end_i=data_i[1], write_path="./temp/song_data6.csv")
     start_time = time.time()
 
 
