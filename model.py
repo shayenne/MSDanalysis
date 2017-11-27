@@ -35,7 +35,7 @@ def basic_info(categories=["tempo","duration","key","time_signature","song_hottt
 
 def freq_plot(category="year",saved_csv=None):
     """ Plots frequency of category"""
-    categories = category
+    categories = [category]
     if saved_csv: 
         df = pd.read_csv(saved_csv)
         df = df[categories]
@@ -92,16 +92,16 @@ def world_plot(lat="artist_latitude",lon="artist_longitude",saved_csv=None):
             urcrnrlat=90,
             urcrnrlon=180, 
             resolution="c")
-    m.drawcoastlines()
-    m.drawcountries(linewidth=1)
-    #m.fillcontinents(color='coral')
-    m.drawmapboundary(fill_color='aqua', alpha=0.5)
+    m.drawcoastlines(linewidth=.5)
+    m.drawcountries(linewidth=.3)
+    m.fillcontinents(color='moccasin')
+    m.drawmapboundary(fill_color='aqua')
     #m.drawstates()
     #m.bluemarble()
     # Plot artists
     for artist_lat,artist_lon in lat_lon:
         x_point,y_point = m(artist_lon,artist_lat)
-        m.plot(x_point,y_point,"o",markersize = 5, alpha=0.6)
+        m.plot(x_point,y_point,".",markersize = 3, alpha=0.4, color='blue', linewidth=0)
     plt.title("Artist Locations")
     plt.savefig("artist_location.png",bbox_inches="tight", dpi=600)
     plt.show()
