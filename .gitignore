@@ -1,0 +1,8 @@
+*.png
+*.jpg
+./MillionSongSubset/
+./temp/
+./venv/
+./.ipynb_checkpoints/
+*.pyc
+./MSongsDB/
