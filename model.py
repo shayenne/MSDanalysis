@@ -140,10 +140,19 @@ def stacked_barplot(full="duration",head_end="end_of_fade_in",tail_start="start_
     fade_out = df_cropped[full].sub(df_cropped[tail_start]) # To get value of start of tail to end of song
     middle = df_cropped[full].sub(fade_in).sub(fade_out) # Full contains head and tail already so we need to subtract the amounts of head and tail to avoid double counting
     
+     # basic plot
+    plt.title("Songs duration distribution")
+    plt.ylabel("Seconds")
+    plt.boxplot(middle)
+    plt.savefig("boxplot_songs_duration.png",bbox_inches="tight", dpi=600)
+    plt.show()
+    
     width = 0.5
     plt.bar(ii,fade_in,width,color="r")
     plt.bar(ii,middle,width,color="k",bottom=fade_in)
     plt.bar(ii,fade_out,width,color="r",bottom=middle)
+    
+   
 
     plt.ylim(ymin=-5)
     plt.title("Song duration")
