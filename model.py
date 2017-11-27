@@ -51,7 +51,7 @@ def freq_plot(category="year",saved_csv=None):
     
     filename = category+"_frequency.png"
     plt.savefig(filename,bbox_inches="tight")
-    plt.clf()
+    plt.show()
     print "Done. Time elapsed: {0}".format(time.time() - start_time)
 
 def world_plot(lat="artist_latitude",lon="artist_longitude",saved_csv=None):
@@ -71,6 +71,8 @@ def world_plot(lat="artist_latitude",lon="artist_longitude",saved_csv=None):
     
     
     """
+    
+    categories = [lat, lon]
     if saved_csv: 
         df = pd.read_csv(saved_csv)
         df = df[categories]
@@ -91,15 +93,17 @@ def world_plot(lat="artist_latitude",lon="artist_longitude",saved_csv=None):
             resolution="c")
     m.drawcoastlines()
     m.drawcountries(linewidth=1)
+    m.fillcontinents(color='coral', alpha=0.6,lake_color='aqua')
+    m.drawmapboundary(fill_color='aqua')
     m.drawstates()
     #m.bluemarble()
     # Plot artists
     for artist_lat,artist_lon in lat_lon:
         x_point,y_point = m(artist_lon,artist_lat)
-        m.plot(x_point,y_point,"*",markersize = 10)
+        m.plot(x_point,y_point,"o",markersize = 5, alpha=0.6)
     plt.title("Artist Locations")
-    plt.savefig("artist_location.png",bbox_inches="tight")
-    plt.clf()
+    plt.savefig("artist_location.png",bbox_inches="tight", dpi=600)
+    plt.show()
     print "Done. Time elapsed: {0}".format(time.time() - start_time)
 
 def stacked_barplot(full="duration",head_end="end_of_fade_in",tail_start="start_of_fade_out",saved_csv=None):
@@ -145,7 +149,7 @@ def stacked_barplot(full="duration",head_end="end_of_fade_in",tail_start="start_
     plt.ylabel("Seconds")
 
     plt.savefig("fade_in_out.png",bbox_inches="tight")
-    plt.clf()
+    plt.show()
     print "Done. Time elapsed: {0}".format(time.time() - start_time)
 
 def compare_to_average(x_cat="year",y_cat="artist_hotttnesss",saved_csv=None):
